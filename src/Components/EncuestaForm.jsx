@@ -1,8 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
+import { Form, Button, Col } from "react-bootstrap";
 
 export default function EncuestaForm() {
   const [data, setData] = useState();
+  const usersCollectionRef = collection(db, "users");
   const [input, setInput] = useState({
     full_name: "",
     email: "",
@@ -38,19 +42,19 @@ export default function EncuestaForm() {
     }
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(input);
-    // Envia el estado input al servidor
-    fetch("/enviar", {
-      method: "POST",
-      body: JSON.stringify(input),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }
+
+    //envio del formulario
+    await addDoc(usersCollectionRef, {
+      full_name: input.full_name,
+      email: input.email,
+      birth_date: input.birth_date,
+      country_of_origin: input.country_of_origin,
+      terms_and_conditions: input.terms_and_conditions,
+    });
+  };
 
   useEffect(() => {
     fetchData();
