@@ -2,10 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Col, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function EncuestaForm() {
   const [data, setData] = useState();
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
   const usersCollectionRef = collection(db, "users");
   const [input, setInput] = useState({
     full_name: "",
@@ -54,6 +58,7 @@ export default function EncuestaForm() {
       country_of_origin: input.country_of_origin,
       terms_and_conditions: input.terms_and_conditions,
     });
+    navigate("/done");
   };
 
   useEffect(() => {
@@ -61,85 +66,127 @@ export default function EncuestaForm() {
   }, []);
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      {data &&
-        data.items.map((item) => {
-          if (item.type === "text") {
-            return (
-              <div>
-                <label>{item.label}</label>
-                <input
-                  type={item.type}
-                  name={item.name}
-                  required={item.required}
-                  value={input[item.name]}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            );
-          } else if (item.type === "email") {
-            return (
-              <div>
-                <label>{item.label}</label>
-                <input
-                  type={item.type}
-                  name={item.name}
-                  required={item.required}
-                  value={input[item.name]}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            );
-          } else if (item.type === "date") {
-            return (
-              <div>
-                <label>{item.label}</label>
-                <input
-                  type={item.type}
-                  name={item.name}
-                  required={item.required}
-                  value={input[item.name]}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            );
-          } else if (item.type === "select") {
-            return (
-              <div>
-                <label>{item.label}</label>
-                <select
-                  name={item.name}
-                  required={item.required}
-                  value={input[item.name]}
-                  onChange={(e) => handleChange(e)}
-                >
-                  {item.options.map((option) => {
-                    return <option value={option.value}>{option.label}</option>;
-                  })}
-                </select>
-              </div>
-            );
-          } else if (item.type === "checkbox") {
-            return (
-              <div>
-                <label>{item.label}</label>
-                <input
-                  type={item.type}
-                  name={item.name}
-                  required={item.required}
-                  checked={input[item.name]}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            );
-          } else if (item.type === "submit") {
-            return (
-              <div>
-                <input type={item.type} value={item.label} />
-              </div>
-            );
-          }
-        })}
-    </form>
+    <Container fluid>
+      <Row>
+        <Col lg={6}>
+          <div id="contenedor-creacion"></div>
+        </Col>
+        <Col
+          lg={6}
+          className="m-auto d-flex flex-column border shadow-lg pt-5 pb-5 rounded"
+        >
+          <h1 id="typing">Por favor, complete el formulario.</h1>
+          <blockquote class="blockquote">
+            <p className="text-muted">
+              Utilice información real, dichos datos son almacenados en nuestra
+              base de datos...
+            </p>
+          </blockquote>
+          <Form
+            onSubmit={(e) => handleSubmit(e)}
+            errors={errors}
+            className="d-flex flex-column gap-4"
+          >
+            {data &&
+              data.items.map((item) => {
+                if (item.type === "text") {
+                  return (
+                    <Form.Group>
+                      <Form.Label>{item.label}</Form.Label>
+                      <Form.Control
+                        type={item.type}
+                        name={item.name}
+                        required={item.required}
+                        value={input[item.name]}
+                        onChange={(e) => handleChange(e)}
+                        isInvalid={!!errors[item.name]}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors[item.name]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                } else if (item.type === "email") {
+                  return (
+                    <Form.Group>
+                      <Form.Label>{item.label}</Form.Label>
+                      <Form.Control
+                        type={item.type}
+                        name={item.name}
+                        required={item.required}
+                        value={input[item.name]}
+                        onChange={(e) => handleChange(e)}
+                        isInvalid={!!errors[item.name]}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors[item.name]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                } else if (item.type === "date") {
+                  return (
+                    <Form.Group>
+                      <Form.Label>{item.label}</Form.Label>
+                      <Form.Control
+                        type={item.type}
+                        name={item.name}
+                        required={item.required}
+                        value={input[item.name]}
+                        onChange={(e) => handleChange(e)}
+                        isInvalid={!!errors[item.name]}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors[item.name]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                } else if (item.type === "select") {
+                  return (
+                    <Form.Group>
+                      <Form.Label>{item.label}</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name={item.name}
+                        required={item.required}
+                        value={input[item.name]}
+                        onChange={(e) => handleChange(e)}
+                        isInvalid={!!errors[item.name]}
+                      >
+                        {item.options.map((option) => {
+                          return (
+                            <option value={option.value}>{option.label}</option>
+                          );
+                        })}
+                      </Form.Control>
+                      <Form.Control.Feedback type="invalid">
+                        {errors[item.name]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                } else if (item.type === "checkbox") {
+                  return (
+                    <Form.Group>
+                      <Form.Check
+                        type={item.type}
+                        label={item.label}
+                        name={item.name}
+                        required={item.required}
+                        checked={input[item.name]}
+                        onChange={(e) => handleChange(e)}
+                        isInvalid={!!errors[item.name]}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors[item.name]}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                } else if (item.type === "submit") {
+                  return <Button type={item.type}>{item.label}</Button>;
+                }
+              })}
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
