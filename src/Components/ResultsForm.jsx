@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { db } from "../firebase";
 import { collection, getDocs, docs, doc } from "firebase/firestore";
 import {
@@ -8,8 +9,10 @@ import {
   Form,
   FormControl,
   Button,
+  Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 export default function ResultsForm() {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,10 +45,10 @@ export default function ResultsForm() {
   return (
     <Container
       fluid
-      className="min-vh-100 d-flex flex-column bg-white text-dark"
+      className="min-vh-100 d-flex min-vw-100 flex-column bg-white text-dark"
     >
       <div className="mt-5">
-        <h1>Tabla de inscriptos:</h1>
+        <h1 id="titulos">Tabla de inscriptos:</h1>
         <br />
         {/* formulario de búsqueda */}
         <Form inline className="w-25 d-flex gap-3">
@@ -61,13 +64,13 @@ export default function ResultsForm() {
         {isLoading ? (
           <Spinner animation="border" size="lg" />
         ) : (
-          <Table striped bordered hover className="shadow-lg">
+          <Table striped bordered hover className="shadow-lg show">
             <thead>
               <tr>
                 <th>Nombre completo</th>
                 <th>Correo electronico</th>
                 <th>Fecha de nacimiento</th>
-                <th>Pais de origin</th>
+                <th>Pais de origen</th>
                 <th>¿Ha aceptado los terminos?</th>
               </tr>
             </thead>
@@ -92,17 +95,13 @@ export default function ResultsForm() {
         )}
         <div className="d-flex flex-row gap-4 justify-content-center mt-5">
           <Button id="button">
-            <Link className="text-black" to="/">
+            <Link className="text-white" to="/">
               Inicio
             </Link>
           </Button>
-          <Button id="button2">
-            <Link className="text-black" to="/done">
-              Realizado
-            </Link>
-          </Button>
+
           <Button id="button">
-            <Link className="text-black" to="/home">
+            <Link className="text-white" to="/home">
               Crear
             </Link>
           </Button>

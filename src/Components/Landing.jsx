@@ -12,9 +12,9 @@ export default function Landing() {
       />
       <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>
         <div className="d-flex justify-content-center flex-column align-items-center h-100 gap-4">
-          <p className="text-white mb-0 w-75 fs-4">
+          <p className="text-white mb-0 w-75 fs-4 animation-slide" id="titulos">
             Funcionamientos cumplidos:
-            <ul className="text-white fs-5">
+            <ul className="text-white fs-5" id="parrafos">
               <li>
                 La página cuenta con un formulario de entrada de datos que
                 cumple con todos los requisitos y validaciones necesarias.
@@ -38,16 +38,19 @@ export default function Landing() {
             </ul>
           </p>
           <div className="d-flex flex-column gap-3 ">
+            <label className="text-white">Formulario de creacion</label>
             <Button id="button">
               <Link className="text-black fs-5" to="/home">
                 Crear
               </Link>
             </Button>
+            <label className="text-white">Paginado de "realizado"</label>
             <Button id="button2">
               <Link className="text-black fs-5" to="/done">
                 Done
               </Link>
             </Button>
+            <label className="text-white">Tabla de resultados</label>
             <Button id="button">
               <Link className="text-black fs-5" to="/results">
                 Resultados

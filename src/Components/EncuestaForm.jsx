@@ -3,19 +3,20 @@ import { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 export default function EncuestaForm() {
   const [data, setData] = useState();
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const usersCollectionRef = collection(db, "users");
   const [input, setInput] = useState({
     full_name: "",
     email: "",
     birth_date: "",
-    country_of_origin: "",
+    country_of_origin: "argentina", // Evita que si no selecciona una primera opcion(la cual es argentina) se aplique el valor por defecto.
     terms_and_conditions: false,
   });
 
@@ -49,7 +50,7 @@ export default function EncuestaForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(input);
-
+    setIsSubmitting(true); // cambiamos el estado de envío a "en progreso"
     //envio del formulario
     await addDoc(usersCollectionRef, {
       full_name: input.full_name,
@@ -58,6 +59,7 @@ export default function EncuestaForm() {
       country_of_origin: input.country_of_origin,
       terms_and_conditions: input.terms_and_conditions,
     });
+    setIsSubmitting(false); // cambiamos el estado de envío a "completado"
     navigate("/done");
   };
 
@@ -181,7 +183,22 @@ export default function EncuestaForm() {
                     </Form.Group>
                   );
                 } else if (item.type === "submit") {
-                  return <Button type={item.type}>{item.label}</Button>;
+                  return (
+                    <div className="d-flex flex-column align-items-center gap-3">
+                      <Button id="button" type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <Spinner animation="border" size="sm" />
+                        ) : (
+                          "Enviar"
+                        )}
+                      </Button>
+                      <Button id="button2">
+                        <Link className="text-white" to="/results">
+                          Quiero ver la tabla
+                        </Link>
+                      </Button>
+                    </div>
+                  );
                 }
               })}
           </Form>

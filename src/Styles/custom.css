@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rowdies&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap");
 * {
   margin: 0px;
   padding: 0px;
@@ -28,12 +30,23 @@
   align-items: center;
 }
 
+#titulos {
+  font-family: "Rowdies", cursive;
+}
+
+#parrafos {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+
+p {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
 #typing {
   overflow: hidden;
-
+  font-family: "Rowdies", cursive;
   white-space: nowrap;
   border-right: 0.1em solid orange;
-  font-size: 45px;
+  font-size: 40px;
   margin: 0 auto;
   letter-spacing: 0.15em;
   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
@@ -73,4 +86,50 @@
 
 a {
   text-decoration: none;
+}
+
+.animation-slide {
+  animation: slide-in 1s forwards;
+  word-spacing: 10px;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%); /* comienza fuera de la pantalla */
+  }
+  to {
+    transform: translateX(0); /* termina en su posición original */
+  }
+}
+
+/* Realizado efectos */
+
+/* h4 */
+
+#h4 {
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* p */
+
+#p {
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
