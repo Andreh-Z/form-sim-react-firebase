@@ -145,3 +145,69 @@ a {
     opacity: 0;
   }
 }
+
+#footer-container {
+  position: relative;
+}
+
+#footer-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(2, 6, 122, 0.682);
+  filter: blur(5px);
+  z-index: -1;
+}
+
+#icon-animation {
+  animation: move-icons 2s infinite;
+
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes move-icons {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(30px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#typing-parrafo {
+  overflow: hidden;
+  font-family: "Noto Nastaliq Urdu", serif;
+  white-space: nowrap;
+  border-right: 0.1em solid orange;
+  font-size: 13px;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  /* Agrega la propiedad "animation-fill-mode" con el valor "forwards" */
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  animation-fill-mode: forwards;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
