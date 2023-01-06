@@ -192,7 +192,7 @@ export default function EncuestaForm() {
                           "Enviar"
                         )}
                       </Button>
-                      <Button id="button2">
+                      <Button id="button2" className="flash">
                         <Link className="text-white" to="/results">
                           Quiero ver la tabla
                         </Link>

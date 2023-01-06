@@ -133,3 +133,15 @@ a {
     transform: translateX(0);
   }
 }
+
+/* Animacion de parpadeo .flash de react-bootstrap no funciona :( */
+
+.flash {
+  animation: flash 5s infinite;
+}
+
+@keyframes flash {
+  50% {
+    opacity: 0;
+  }
+}

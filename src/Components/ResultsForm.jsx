@@ -12,6 +12,7 @@ import {
   Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import NoResults from "./NoResults";
 
 export default function ResultsForm() {
   const [results, setResults] = useState([]);
@@ -64,34 +65,40 @@ export default function ResultsForm() {
         {isLoading ? (
           <Spinner animation="border" size="lg" />
         ) : (
-          <Table striped bordered hover className="shadow-lg show">
-            <thead>
-              <tr>
-                <th>Nombre completo</th>
-                <th>Correo electronico</th>
-                <th>Fecha de nacimiento</th>
-                <th>Pais de origen</th>
-                <th>¿Ha aceptado los terminos?</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((result) => {
-                return (
+          <>
+            {results.length === 0 ? (
+              <NoResults />
+            ) : (
+              <Table striped bordered hover className="shadow-lg show">
+                <thead>
                   <tr>
-                    <td>{result.full_name}</td>
-                    <td>{result.email}</td>
-                    <td>{result.birth_date}</td>
-                    <td>{result.country_of_origin}</td>
-                    <td>
-                      {result.terms_and_conditions === true
-                        ? "aceptado"
-                        : "no aceptado"}
-                    </td>
+                    <th>Nombre completo</th>
+                    <th>Correo electronico</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Pais de origen</th>
+                    <th>¿Ha aceptado los terminos?</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+                </thead>
+                <tbody>
+                  {results.map((result) => {
+                    return (
+                      <tr>
+                        <td>{result.full_name}</td>
+                        <td>{result.email}</td>
+                        <td>{result.birth_date}</td>
+                        <td>{result.country_of_origin}</td>
+                        <td>
+                          {result.terms_and_conditions === true
+                            ? "aceptado"
+                            : "no aceptado"}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            )}
+          </>
         )}
         <div className="d-flex flex-row gap-4 justify-content-center mt-5">
           <Button id="button">
