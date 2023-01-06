@@ -5,6 +5,10 @@ bin-release/
 [Bb]in/
 /node_modules
 .env
+.firebase
+Build
+.firebaserc
+firebase.json
 
 # Other files and folders
 .settings/
