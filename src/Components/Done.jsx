@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 export default function Done() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <div id="imagen">
         <div className="d-flex justify-content-center flex-column align-items-center h-100 gap-4">
           <h1 className="text-white mb-0 w-75 fs-1 text-center">

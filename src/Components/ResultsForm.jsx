@@ -18,11 +18,14 @@ export default function ResultsForm() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState(""); // variable de estado para almacenar el valor de la búsqueda
   const usersCollectionRef = collection(db, "users");
+  const [allResults, setAllResults] = useState([]); // nueva variable para almacenar la lista original de resultados
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      setResults(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const results = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setResults(results); // actualizamos la lista de resultados con los resultados obtenidos
+      setAllResults(results); // guardamos la lista original de resultados
       setIsLoading(false);
     };
     getUsers();
@@ -31,7 +34,7 @@ export default function ResultsForm() {
 
   // función para filtrar los resultados
   const handleSearch = () => {
-    const filteredResults = results.filter((result) =>
+    const filteredResults = allResults.filter((result) =>
       result.full_name.includes(searchValue)
     );
     setResults(filteredResults);
@@ -57,6 +60,12 @@ export default function ResultsForm() {
             placeholder="Escribe el nombre a buscar"
             value={searchValue}
             onChange={handleChange}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                handleSearch();
+              }
+            }}
           />
           <Button onClick={handleSearch}>Buscar</Button>
         </Form>
