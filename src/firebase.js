@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 
 // Your web app's Firebase configuration
+//  Por seguridad dichos valores deberian de estar en variables de entorno
 const firebaseConfig = {
   apiKey: "AIzaSyAnjLzizMl2jy8vT_yaESWthpdhSOkaXfY",
   authDomain: "greydive-test.firebaseapp.com",
