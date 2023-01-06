@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { db } from "../firebase";
-import { collection, getDocs, docs, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import {
   Table,
   Spinner,
@@ -9,7 +9,6 @@ import {
   Form,
   FormControl,
   Button,
-  Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NoResults from "./NoResults";

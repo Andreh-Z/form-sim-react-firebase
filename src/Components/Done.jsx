@@ -1,5 +1,5 @@
 import React from "react";
-import bg5 from "../Assets/bg-5.png";
+
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 export default function Done() {
